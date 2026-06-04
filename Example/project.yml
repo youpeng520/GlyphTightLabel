@@ -6,14 +6,20 @@ options:
 packages:
   GlyphTightLabel:
     path: ..
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit.git
+    from: 6.0.0
 targets:
   GlyphTightLabelDemo:
     type: application
     platform: iOS
     sources:
       - path: GlyphTightLabelDemo
+    resources:
+      - path: GlyphTightLabelDemo/Resources
     settings:
       GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_FILE: GlyphTightLabelDemo/Info.plist
       INFOPLIST_KEY_UILaunchScreen_Generation: YES
       INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
       INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
@@ -21,3 +27,5 @@ targets:
     dependencies:
       - package: GlyphTightLabel
         product: GlyphTightLabel
+      - package: SnapKit
+        product: SnapKit

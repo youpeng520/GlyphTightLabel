@@ -8,14 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		B1A1A1A10000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000001 /* AppDelegate.swift */; };
-		B1A1A1A10000000000000002 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000002 /* DemoViewController.swift */; };
+		B1A1A1A10000000000000002 /* GlyphTightDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000002 /* GlyphTightDemoViewController.swift */; };
 		B1A1A1A10000000000000003 /* GlyphTightLabel in Frameworks */ = {isa = PBXBuildFile; productRef = B1A1A1A30000000000000002 /* GlyphTightLabel */; };
+		B1A1A1A10000000000000004 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1A1A1A30000000000000004 /* SnapKit */; };
+		B1A1A1A10000000000000005 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000005 /* Poppins-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B1A1A1A20000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B1A1A1A20000000000000002 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		B1A1A1A20000000000000002 /* GlyphTightDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphTightDemoViewController.swift; sourceTree = "<group>"; };
 		B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlyphTightLabelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A1A1A20000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B1A1A1A20000000000000005 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -24,6 +28,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1A1A1A10000000000000003 /* GlyphTightLabel in Frameworks */,
+				B1A1A1A10000000000000004 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,7 +47,9 @@
 			isa = PBXGroup;
 			children = (
 				B1A1A1A20000000000000001 /* AppDelegate.swift */,
-				B1A1A1A20000000000000002 /* DemoViewController.swift */,
+				B1A1A1A20000000000000002 /* GlyphTightDemoViewController.swift */,
+				B1A1A1A20000000000000004 /* Info.plist */,
+				B1A1A1A50000000000000004 /* Resources */,
 			);
 			path = GlyphTightLabelDemo;
 			sourceTree = "<group>";
@@ -55,6 +62,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B1A1A1A50000000000000004 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B1A1A1A50000000000000005 /* Fonts */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B1A1A1A50000000000000005 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B1A1A1A20000000000000005 /* Poppins-Regular.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -63,6 +86,7 @@
 			buildConfigurationList = B1A1A1A70000000000000002 /* Build configuration list for PBXNativeTarget "GlyphTightLabelDemo" */;
 			buildPhases = (
 				B1A1A1A80000000000000001 /* Sources */,
+				B1A1A1A80000000000000002 /* Resources */,
 				B1A1A1A40000000000000001 /* Frameworks */,
 			);
 			buildRules = (
@@ -72,6 +96,7 @@
 			name = GlyphTightLabelDemo;
 			packageProductDependencies = (
 				B1A1A1A30000000000000002 /* GlyphTightLabel */,
+				B1A1A1A30000000000000004 /* SnapKit */,
 			);
 			productName = GlyphTightLabelDemo;
 			productReference = B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */;
@@ -102,6 +127,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				B1A1A1A30000000000000001 /* XCLocalSwiftPackageReference "GlyphTightLabel" */,
+				B1A1A1A30000000000000003 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B1A1A1A50000000000000003 /* Products */;
@@ -113,13 +139,24 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		B1A1A1A80000000000000002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1A1A1A10000000000000005 /* Poppins-Regular.ttf in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B1A1A1A80000000000000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				B1A1A1A10000000000000001 /* AppDelegate.swift in Sources */,
-				B1A1A1A10000000000000002 /* DemoViewController.swift in Sources */,
+				B1A1A1A10000000000000002 /* GlyphTightDemoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,7 +206,7 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_FILE = GlyphTightLabelDemo/Info.plist;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -189,7 +226,7 @@
 			buildSettings = {
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_FILE = GlyphTightLabelDemo/Info.plist;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -234,11 +271,27 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		B1A1A1A30000000000000003 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
 		B1A1A1A30000000000000002 /* GlyphTightLabel */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B1A1A1A30000000000000001 /* XCLocalSwiftPackageReference "GlyphTightLabel" */;
 			productName = GlyphTightLabel;
+		};
+		B1A1A1A30000000000000004 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A1A1A30000000000000003 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
