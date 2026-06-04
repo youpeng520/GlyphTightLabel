@@ -10,20 +10,25 @@ import UIKit
 
 final class FontMetricsSampleView: UIView {
     private enum Constants {
-        static let fontSize: CGFloat = 56
-        static let textAreaHeight: CGFloat = 104
+        static let fontSize: CGFloat = 42
+        static let defaultLabelHeight: CGFloat = 104
     }
 
-    private let sampleText = "Agjpqy"
+    private let sampleText = "Agjpqy Çãñá"
+    private let tightMultilineText = "Agjpqy\nTight\nÇãñá"
+    private let languageText = "Türkçe: İğüşöç\nPortuguês: ação coração\nEspañol: pingüino año\n日本語: こんにちは世界"
+    private let autoWrapText = "İstanbul, São Paulo, Málaga, Bogotá, über, façade, niño, ação, pingüino, こんにちは世界"
 
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = .label
         label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+
+    private let defaultTitleLabel = FontMetricsSampleView.makeSectionLabel("Default UILabel line box")
+    private let tightTitleLabel = FontMetricsSampleView.makeSectionLabel("Glyph-tight UILabel")
 
     private let textLabel: UILabel = {
         let label = UILabel()
@@ -32,40 +37,100 @@ final class FontMetricsSampleView: UIView {
         label.backgroundColor = UIColor.systemYellow.withAlphaComponent(0.28)
         label.numberOfLines = 1
         label.adjustsFontForContentSizeCategory = false
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let tightTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Glyph-tight UILabel"
-        label.font = .monospacedSystemFont(ofSize: 12, weight: .medium)
-        label.textColor = .secondaryLabel
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private let overlayView: FontMetricsOverlayView = {
+        let view = FontMetricsOverlayView()
+        view.isUserInteractionEnabled = false
+        view.backgroundColor = .clear
+        return view
     }()
 
-    private let tightLabel: GlyphTightLabel = {
-        let label = GlyphTightLabel()
-        label.textAlignment = .center
-        label.textColor = .label
-        label.backgroundColor = UIColor.systemCyan.withAlphaComponent(0.24)
-        label.numberOfLines = 1
-        label.adjustsFontForContentSizeCategory = false
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.borderColor = UIColor.systemTeal.cgColor
-        label.layer.borderWidth = 1
-        return label
-    }()
+    private let tightSingleLabel = FontMetricsSampleView.makeTightLabel()
+    private let tightMultilineLabel = FontMetricsSampleView.makeTightLabel()
+    private let tightLanguageLabel = FontMetricsSampleView.makeTightLabel()
+    private let tightAutoWrapLabel = FontMetricsSampleView.makeTightLabel()
 
-    private let overlayView = FontMetricsOverlayView()
+    private lazy var tightSingleStackView = makeTightSampleStack(
+        title: "single line",
+        label: tightSingleLabel
+    )
+
+    private lazy var tightMultilineStackView = makeTightSampleStack(
+        title: "explicit lines",
+        label: tightMultilineLabel
+    )
+
+    private lazy var tightLanguageStackView = makeTightSampleStack(
+        title: "diacritics + Japanese",
+        label: tightLanguageLabel
+    )
+
+    private lazy var tightAutoWrapStackView = makeTightSampleStack(
+        title: "auto wrap",
+        label: tightAutoWrapLabel
+    )
+
+    private lazy var tightSamplesStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            tightSingleStackView,
+            tightMultilineStackView,
+            tightLanguageStackView,
+            tightAutoWrapStackView,
+        ])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 12
+        return stackView
+    }()
 
     private let metricsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 6
+        return stackView
+    }()
+
+    private lazy var contentStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [
+            titleLabel,
+            defaultTitleLabel,
+            defaultPreviewView,
+            tightTitleLabel,
+            tightSamplesStackView,
+            metricsStackView,
+        ])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 12
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
+    }()
+
+    private lazy var defaultPreviewView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        overlayView.translatesAutoresizingMaskIntoConstraints = false
+
+        view.addSubview(textLabel)
+        view.addSubview(overlayView)
+
+        NSLayoutConstraint.activate([
+            view.heightAnchor.constraint(equalToConstant: Constants.defaultLabelHeight),
+            textLabel.topAnchor.constraint(equalTo: view.topAnchor),
+            textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            textLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            overlayView.topAnchor.constraint(equalTo: textLabel.topAnchor),
+            overlayView.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
+            overlayView.trailingAnchor.constraint(equalTo: textLabel.trailingAnchor),
+            overlayView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor),
+        ])
+
+        return view
     }()
 
     private let font: UIFont
@@ -74,8 +139,9 @@ final class FontMetricsSampleView: UIView {
         font = UIFont(name: fontName, size: Constants.fontSize) ?? .systemFont(ofSize: Constants.fontSize)
         super.init(frame: .zero)
 
-        titleLabel.text = title
+        titleLabel.text = "\(title) · \(font.fontName)"
         configureView()
+        configureSamples()
         configureMetrics()
     }
 
@@ -90,73 +156,105 @@ final class FontMetricsSampleView: UIView {
         layer.borderColor = UIColor.separator.cgColor
         layer.borderWidth = 1
 
-        textLabel.text = sampleText
-        textLabel.font = font
-        tightLabel.text = sampleText
-        tightLabel.font = font
-
-        overlayView.label = textLabel
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.isUserInteractionEnabled = false
-        overlayView.backgroundColor = .clear
-
-        addSubview(titleLabel)
-        addSubview(textLabel)
-        addSubview(overlayView)
-        addSubview(tightTitleLabel)
-        addSubview(tightLabel)
-        addSubview(metricsStackView)
+        addSubview(contentStackView)
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-
-            textLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-            textLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            textLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-            textLabel.heightAnchor.constraint(equalToConstant: Constants.textAreaHeight),
-
-            overlayView.topAnchor.constraint(equalTo: textLabel.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: textLabel.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor),
-
-            tightTitleLabel.topAnchor.constraint(equalTo: overlayView.bottomAnchor, constant: 18),
-            tightTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 24),
-            tightTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
-
-            tightLabel.topAnchor.constraint(equalTo: tightTitleLabel.bottomAnchor, constant: 8),
-            tightLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            tightLabel.heightAnchor.constraint(equalToConstant: ceil(GlyphTightTextLayout.metrics(text: sampleText, font: font).tightHeight)),
-
-            metricsStackView.topAnchor.constraint(equalTo: tightLabel.bottomAnchor, constant: 18),
-            metricsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            metricsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            metricsStackView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16),
+            contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
         ])
+    }
+
+    private func configureSamples() {
+        textLabel.text = sampleText
+        textLabel.font = font
+        overlayView.label = textLabel
+
+        tightSingleLabel.text = sampleText
+        tightSingleLabel.font = font
+        tightSingleLabel.numberOfLines = 1
+
+        tightMultilineLabel.text = tightMultilineText
+        tightMultilineLabel.font = font
+        tightMultilineLabel.numberOfLines = 0
+
+        tightLanguageLabel.text = languageText
+        tightLanguageLabel.font = font
+        tightLanguageLabel.numberOfLines = 0
+
+        tightAutoWrapLabel.text = autoWrapText
+        tightAutoWrapLabel.font = font
+        tightAutoWrapLabel.numberOfLines = 0
     }
 
     private func configureMetrics() {
         let glyphBounds = FontMetricsCalculator.glyphUnionBounds(text: sampleText, font: font)
-        let tightMetrics = GlyphTightTextLayout.metrics(text: sampleText, font: font)
-        let baselineY = Constants.textAreaHeight / 2 + (font.ascender + font.descender) / 2
+        let defaultBaselineY = Constants.defaultLabelHeight / 2 + (font.ascender + font.descender) / 2
+        let singleMetrics = GlyphTightTextLayout.metrics(text: sampleText, font: font)
+        let multilineMetrics = GlyphTightTextLayout.metrics(
+            text: tightMultilineText,
+            font: font,
+            constrainedWidth: .greatestFiniteMagnitude,
+            numberOfLines: 0
+        )
+        let languageMetrics = GlyphTightTextLayout.metrics(
+            text: languageText,
+            font: font,
+            constrainedWidth: .greatestFiniteMagnitude,
+            numberOfLines: 0
+        )
+        let autoWrapMetrics = GlyphTightTextLayout.metrics(
+            text: autoWrapText,
+            font: font,
+            constrainedWidth: 280,
+            numberOfLines: 0
+        )
 
-        [
-            ("fontName", font.fontName),
-            ("pointSize", format(font.pointSize)),
-            ("labelBounds", "fill x \(format(Constants.textAreaHeight))"),
-            ("baselineY", format(baselineY)),
-            ("glyphBounds", format(glyphBounds)),
-            ("tightHeight", format(tightMetrics.tightHeight)),
-            ("lineHeight", format(font.lineHeight)),
-            ("ascender", format(font.ascender)),
-            ("descender", format(font.descender)),
-            ("capHeight", format(font.capHeight)),
-            ("xHeight", format(font.xHeight)),
-        ].forEach { title, value in
-            metricsStackView.addArrangedSubview(makeMetricRow(title: title, value: value))
+        addMetricGroup(
+            title: "Font",
+            rows: [
+                ("pointSize", format(font.pointSize)),
+                ("lineHeight", format(font.lineHeight)),
+                ("ascender", format(font.ascender)),
+                ("descender", format(font.descender)),
+                ("capHeight", format(font.capHeight)),
+                ("xHeight", format(font.xHeight)),
+            ]
+        )
+        addMetricGroup(
+            title: "Default UILabel",
+            rows: [
+                ("labelHeight", format(Constants.defaultLabelHeight)),
+                ("baselineY", format(defaultBaselineY)),
+                ("glyphBounds", format(glyphBounds)),
+            ]
+        )
+        addMetricGroup(
+            title: "Glyph-tight",
+            rows: [
+                ("singleHeight", format(singleMetrics.tightHeight)),
+                ("explicitLines", "\(multilineMetrics.lines.count), \(format(multilineMetrics.tightHeight))"),
+                ("languageLines", "\(languageMetrics.lines.count), \(format(languageMetrics.tightHeight))"),
+                ("autoWrapLines", "\(autoWrapMetrics.lines.count), \(format(autoWrapMetrics.tightHeight))"),
+                ("savedSpace", format(font.lineHeight - singleMetrics.tightHeight)),
+            ]
+        )
+    }
+
+    private func addMetricGroup(title: String, rows: [(String, String)]) {
+        metricsStackView.addArrangedSubview(makeMetricHeader(title))
+        for (name, value) in rows {
+            metricsStackView.addArrangedSubview(makeMetricRow(title: name, value: value))
         }
+    }
+
+    private func makeMetricHeader(_ title: String) -> UILabel {
+        let label = UILabel()
+        label.text = title
+        label.font = .monospacedSystemFont(ofSize: 12, weight: .bold)
+        label.textColor = .label
+        return label
     }
 
     private func makeMetricRow(title: String, value: String) -> UIView {
@@ -180,6 +278,44 @@ final class FontMetricsSampleView: UIView {
         row.alignment = .firstBaseline
         row.spacing = 12
         return row
+    }
+
+    private func makeTightSampleStack(title: String, label: GlyphTightLabel) -> UIStackView {
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = .monospacedSystemFont(ofSize: 12, weight: .medium)
+        titleLabel.textColor = .secondaryLabel
+        titleLabel.textAlignment = .center
+
+        let stackView = UIStackView(arrangedSubviews: [titleLabel, label])
+        stackView.axis = .vertical
+        stackView.alignment = .fill
+        stackView.spacing = 8
+        return stackView
+    }
+
+    private static func makeSectionLabel(_ title: String) -> UILabel {
+        let label = UILabel()
+        label.text = title
+        label.font = .monospacedSystemFont(ofSize: 12, weight: .semibold)
+        label.textColor = .secondaryLabel
+        return label
+    }
+
+    private static func makeTightLabel() -> GlyphTightLabel {
+        let label = GlyphTightLabel()
+        label.textAlignment = .center
+        label.textColor = .label
+        label.backgroundColor = UIColor.systemPink.withAlphaComponent(0.24)
+        label.adjustsFontForContentSizeCategory = false
+        label.showsDebugLineSeparators = true
+        label.lineBreakMode = .byWordWrapping
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.borderColor = UIColor.systemPink.cgColor
+        label.layer.borderWidth = 1
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
+        return label
     }
 
     private func format(_ value: CGFloat) -> String {

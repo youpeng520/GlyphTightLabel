@@ -1,8 +1,8 @@
 name: UIKitExample
 options:
-  bundleIdPrefix: com.sun
+  bundleIdPrefix: com.sunimp
   deploymentTarget:
-    iOS: "17.0"
+    iOS: "15.0"
 settings:
   base:
     DEVELOPMENT_TEAM: ""
@@ -15,7 +15,7 @@ targets:
   UIKitExample:
     type: application
     platform: iOS
-    deploymentTarget: "17.0"
+    deploymentTarget: "15.0"
     sources:
       - path: UIKitExample
     dependencies:
@@ -23,7 +23,7 @@ targets:
         product: LookinServer
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.sun.UIKitExample
+        PRODUCT_BUNDLE_IDENTIFIER: com.sunimp.UIKitExample
         PRODUCT_NAME: UIKitExample
         INFOPLIST_FILE: UIKitExample/Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
