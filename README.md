@@ -2,6 +2,14 @@
 
 基于 CoreText glyph bounds 排版的 `UILabel` 子类，让文字在视觉上更贴近 Label 的上下边缘，而不是系统 `lineHeight` 带来的额外留白。
 
+<p align="center">
+  <img src="assets/glyph-tight-demo.png" alt="GlyphTightLabel Demo：单行与多行 tight 排版，多行开启调试分割线" width="320" />
+</p>
+
+<p align="center">
+  <em>Demo 示例：粉色区域为 glyph tight 边界；多行模式下红/蓝虚线标出每行上下边界。</em>
+</p>
+
 ## 安装（Swift Package Manager）
 
 在 Xcode：**File → Add Package Dependencies…**，填入仓库 URL：
@@ -90,7 +98,8 @@ cd Example && xcodegen generate
 .
 ├── Package.swift              # SPM 库定义
 ├── Sources/GlyphTightLabel/   # 库源码
-└── Example/                   # Demo App（XcodeGen）
+├── assets/                    # README 截图等资源
+└── Example/                   # Demo App
 ```
 
 ## 本地验证 SPM
@@ -101,6 +110,3 @@ swift package resolve
 
 > iOS 库需在 Xcode 或 `xcodebuild` 中链接到 App target 进行完整编译；`swift build` 在纯 macOS 目标下可能无法单独编译 UIKit 代码。
 
-## UIKitExample（可选）
-
-同仓库中的 `UIKitExample/` 为更完整的 UIKit 示例工程（含字体度量等页面），与发布用的 SPM 包相互独立；集成本库时请以 `Sources/GlyphTightLabel` 为准。
