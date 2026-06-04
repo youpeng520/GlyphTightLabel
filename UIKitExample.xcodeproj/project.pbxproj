@@ -16,12 +16,13 @@
 		378C49ACE60B6FDE97A5A171 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF7B4EF7F0BDD3C78094C60D /* Poppins-Regular.ttf */; };
 		5A33E56CB9CFF642FE21FDE8 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2FF19EF4FAC5D040B95565CF /* Poppins-Medium.ttf */; };
 		60C6E2C968110842F1A7D2CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0386D548571F18E0EDFBDAA3 /* AppDelegate.swift */; };
-		63A4A8DE8BEDB279970122E9 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = B6F82052C4F7CC63C7538D7F /* LookinServer */; };
+		708BF2A02FD1741600A4B019 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 708BF29F2FD1741600A4B019 /* SnapKit */; };
 		71A04A2A0A3A441CB411EB23 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F90C051DDE1AD2EB62F2CFFA /* Poppins-ExtraLight.ttf */; };
 		A311C91913551E3BFAAB7DE6 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 06EBB8F717DC951F45D80C85 /* Poppins-Bold.ttf */; };
 		A45D36DF674983D9226C225E /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0ABB697025A3F777951C8F38 /* Poppins-SemiBold.ttf */; };
 		C433F37DB36BD9836C2FB016 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE1A6725F11928B2E2C48208 /* ViewController.swift */; };
 		DCBA12FC0979BCA3FF1A40CA /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 089A364F1C2B628D8CF474AE /* Poppins-Light.ttf */; };
+		E8F1A2B32FD1750000A4C001 /* GlyphTightDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F1A2B22FD1750000A4C001 /* GlyphTightDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		AE1A6725F11928B2E2C48208 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BF7B4EF7F0BDD3C78094C60D /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		CD8DC8B9F9EC32BF4B74EE04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E8F1A2B22FD1750000A4C001 /* GlyphTightDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlyphTightDemoViewController.swift; sourceTree = "<group>"; };
 		F5B693A111725DB72BB5C0E2 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
 		F90C051DDE1AD2EB62F2CFFA /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,7 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63A4A8DE8BEDB279970122E9 /* LookinServer in Frameworks */,
+				708BF2A02FD1741600A4B019 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +79,7 @@
 				0386D548571F18E0EDFBDAA3 /* AppDelegate.swift */,
 				8E9737DE8914BC687D25DA95 /* FontMetricsSampleView.swift */,
 				0C09FAC2B9AB41832E7F9B21 /* GlyphTightLabel.swift */,
+				E8F1A2B22FD1750000A4C001 /* GlyphTightDemoViewController.swift */,
 				3780833FF713C66A90443DBD /* Info.plist */,
 				CD8DC8B9F9EC32BF4B74EE04 /* SceneDelegate.swift */,
 				AE1A6725F11928B2E2C48208 /* ViewController.swift */,
@@ -126,7 +129,7 @@
 			);
 			name = UIKitExample;
 			packageProductDependencies = (
-				B6F82052C4F7CC63C7538D7F /* LookinServer */,
+				708BF29F2FD1741600A4B019 /* SnapKit */,
 			);
 			productName = UIKitExample;
 			productReference = 8D77997915D78A58C634E666 /* UIKitExample.app */;
@@ -157,7 +160,7 @@
 			mainGroup = D0145A4E835EE896265431B4;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				7F4C3C23DE064CB1B0141DB0 /* XCRemoteSwiftPackageReference "LookInside" */,
+				708BF29E2FD1741600A4B019 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 2E84ED8F29EF63DC8EE12764 /* Products */;
@@ -196,6 +199,7 @@
 				60C6E2C968110842F1A7D2CD /* AppDelegate.swift in Sources */,
 				2F55CA3AA4B54DB66FF33FD7 /* FontMetricsSampleView.swift in Sources */,
 				1E6C94327F4353C0CCB52CAB /* GlyphTightLabel.swift in Sources */,
+				E8F1A2B32FD1750000A4C001 /* GlyphTightDemoViewController.swift in Sources */,
 				303E015A454EBC5F6333E0E8 /* SceneDelegate.swift in Sources */,
 				C433F37DB36BD9836C2FB016 /* ViewController.swift in Sources */,
 			);
@@ -393,21 +397,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		7F4C3C23DE064CB1B0141DB0 /* XCRemoteSwiftPackageReference "LookInside" */ = {
+		708BF29E2FD1741600A4B019 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/LookInsideApp/LookInside.git";
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.2.6;
+				version = 6.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B6F82052C4F7CC63C7538D7F /* LookinServer */ = {
+		708BF29F2FD1741600A4B019 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 7F4C3C23DE064CB1B0141DB0 /* XCRemoteSwiftPackageReference "LookInside" */;
-			productName = LookinServer;
+			package = 708BF29E2FD1741600A4B019 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

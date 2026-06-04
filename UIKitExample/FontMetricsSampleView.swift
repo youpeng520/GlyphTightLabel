@@ -6,6 +6,7 @@
 //
 
 import CoreText
+import SnapKit
 import UIKit
 
 final class FontMetricsSampleView: UIView {
@@ -104,31 +105,26 @@ final class FontMetricsSampleView: UIView {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 12
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
     private lazy var defaultPreviewView: UIView = {
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        overlayView.translatesAutoresizingMaskIntoConstraints = false
 
         view.addSubview(textLabel)
         view.addSubview(overlayView)
 
-        NSLayoutConstraint.activate([
-            view.heightAnchor.constraint(equalToConstant: Constants.defaultLabelHeight),
-            textLabel.topAnchor.constraint(equalTo: view.topAnchor),
-            textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            textLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        view.snp.makeConstraints { make in
+            make.height.equalTo(Constants.defaultLabelHeight)
+        }
 
-            overlayView.topAnchor.constraint(equalTo: textLabel.topAnchor),
-            overlayView.leadingAnchor.constraint(equalTo: textLabel.leadingAnchor),
-            overlayView.trailingAnchor.constraint(equalTo: textLabel.trailingAnchor),
-            overlayView.bottomAnchor.constraint(equalTo: textLabel.bottomAnchor),
-        ])
+        textLabel.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        overlayView.snp.makeConstraints { make in
+            make.edges.equalTo(textLabel)
+        }
 
         return view
     }()
@@ -158,12 +154,12 @@ final class FontMetricsSampleView: UIView {
 
         addSubview(contentStackView)
 
-        NSLayoutConstraint.activate([
-            contentStackView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            contentStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            contentStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            contentStackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-        ])
+        contentStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-16)
+        }
     }
 
     private func configureSamples() {
@@ -310,7 +306,6 @@ final class FontMetricsSampleView: UIView {
         label.adjustsFontForContentSizeCategory = false
         label.showsDebugLineSeparators = true
         label.lineBreakMode = .byWordWrapping
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.layer.borderColor = UIColor.systemPink.cgColor
         label.layer.borderWidth = 1
         label.setContentHuggingPriority(.required, for: .vertical)

@@ -5,6 +5,7 @@
 //  Created by Sun on 2026/6/4.
 //
 
+import SnapKit
 import UIKit
 
 final class ViewController: UIViewController {
@@ -53,7 +54,6 @@ final class ViewController: UIViewController {
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceVertical = true
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
@@ -61,7 +61,6 @@ final class ViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.alwaysBounceHorizontal = true
         scrollView.showsHorizontalScrollIndicator = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
 
@@ -69,7 +68,6 @@ final class ViewController: UIViewController {
         let control = UISegmentedControl(items: fontSamples.map(\.segmentTitle))
         control.selectedSegmentIndex = selectedSampleIndex
         control.addTarget(self, action: #selector(fontSegmentChanged(_:)), for: .valueChanged)
-        control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
 
@@ -83,7 +81,6 @@ final class ViewController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 16
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
@@ -91,30 +88,42 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Poppins"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "Demo",
+            style: .plain,
+            target: self,
+            action: #selector(openGlyphTightDemo)
+        )
         view.backgroundColor = .systemBackground
         view.addSubview(scrollView)
         scrollView.addSubview(stackView)
         segmentedControlScrollView.addSubview(segmentedControl)
 
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+        scrollView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.bottom.equalToSuperview()
+        }
 
-            stackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.frameLayoutGuide.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -24),
+        stackView.snp.makeConstraints { make in
+            make.top.equalTo(scrollView.contentLayoutGuide).offset(20)
+            make.leading.equalTo(scrollView.frameLayoutGuide).offset(20)
+            make.trailing.equalTo(scrollView.frameLayoutGuide).offset(-20)
+            make.bottom.equalTo(scrollView.contentLayoutGuide).offset(-24)
+        }
 
-            segmentedControlScrollView.heightAnchor.constraint(equalToConstant: 36),
-            segmentedControl.topAnchor.constraint(equalTo: segmentedControlScrollView.contentLayoutGuide.topAnchor),
-            segmentedControl.leadingAnchor.constraint(equalTo: segmentedControlScrollView.contentLayoutGuide.leadingAnchor),
-            segmentedControl.trailingAnchor.constraint(equalTo: segmentedControlScrollView.contentLayoutGuide.trailingAnchor),
-            segmentedControl.bottomAnchor.constraint(equalTo: segmentedControlScrollView.contentLayoutGuide.bottomAnchor),
-            segmentedControl.centerYAnchor.constraint(equalTo: segmentedControlScrollView.frameLayoutGuide.centerYAnchor),
-            segmentedControl.widthAnchor.constraint(greaterThanOrEqualTo: segmentedControlScrollView.frameLayoutGuide.widthAnchor),
-        ])
+        segmentedControlScrollView.snp.makeConstraints { make in
+            make.height.equalTo(36)
+        }
+
+        segmentedControl.snp.makeConstraints { make in
+            make.edges.equalTo(segmentedControlScrollView.contentLayoutGuide)
+            make.centerY.equalTo(segmentedControlScrollView.frameLayoutGuide)
+            make.width.greaterThanOrEqualTo(segmentedControlScrollView.frameLayoutGuide)
+        }
+    }
+
+    @objc private func openGlyphTightDemo() {
+        navigationController?.pushViewController(GlyphTightDemoViewController(), animated: true)
     }
 
     @objc private func fontSegmentChanged(_ sender: UISegmentedControl) {

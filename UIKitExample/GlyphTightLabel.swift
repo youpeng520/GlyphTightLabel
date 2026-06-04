@@ -39,6 +39,17 @@ open class GlyphTightLabel: UILabel {
         }
     }
 
+    /// 多行时相邻两行 tight 区域之间的额外间距。
+    ///
+    /// 默认 `0`：下一行紧接上一行 glyph 下边界。设为正值可在行与行之间留出空隙，
+    /// 总高度与 `GlyphTightTextLayout.metrics(lineSpacing:)` 一致。
+    public var lineSpacing: CGFloat = 0 {
+        didSet {
+            invalidateIntrinsicContentSize()
+            setNeedsDisplay()
+        }
+    }
+
     /// Label 显示的纯文本。
     ///
     /// 文本变化后会重新计算 glyph bounds，并刷新 intrinsic size 和绘制结果。
@@ -109,7 +120,8 @@ open class GlyphTightLabel: UILabel {
             text: text,
             font: font,
             constrainedWidth: constrainedWidth,
-            numberOfLines: numberOfLines
+            numberOfLines: numberOfLines,
+            lineSpacing: lineSpacing
         )
         return CGRect(
             x: bounds.minX,
@@ -170,7 +182,8 @@ open class GlyphTightLabel: UILabel {
             text: text,
             font: font,
             constrainedWidth: contentRect.width,
-            numberOfLines: numberOfLines
+            numberOfLines: numberOfLines,
+            lineSpacing: lineSpacing
         )
         var lineTopY = contentRect.minY + max(0, (contentRect.height - layout.tightHeight) / 2)
 
@@ -180,7 +193,7 @@ open class GlyphTightLabel: UILabel {
         context.translateBy(x: 0, y: bounds.height)
         context.scaleBy(x: 1, y: -1)
 
-        for line in layout.lines {
+        for (index, line) in layout.lines.enumerated() {
             let baselineY = lineTopY + line.baselineY
             let originX = alignedOriginX(lineWidth: line.lineWidth, in: contentRect)
             if showsDebugLineSeparators {
@@ -189,6 +202,9 @@ open class GlyphTightLabel: UILabel {
             context.textPosition = CGPoint(x: originX, y: bounds.height - baselineY)
             CTLineDraw(line.ctLine, context)
             lineTopY += line.tightHeight
+            if index < layout.lines.count - 1 {
+                lineTopY += lineSpacing
+            }
         }
 
         context.restoreGState()
@@ -227,7 +243,8 @@ open class GlyphTightLabel: UILabel {
             text: text,
             font: font,
             constrainedWidth: width,
-            numberOfLines: numberOfLines
+            numberOfLines: numberOfLines,
+            lineSpacing: lineSpacing
         )
 
         return CGSize(
@@ -288,7 +305,7 @@ public enum GlyphTightTextLayout {
         /// 所有行中最大的 line width。
         public let maxLineWidth: CGFloat
 
-        /// 所有行 tightHeight 直接相加后的总高度。
+        /// 所有行 `tightHeight` 与行间 `lineSpacing` 累加后的总高度。
         public let tightHeight: CGFloat
     }
 
@@ -317,12 +334,14 @@ public enum GlyphTightTextLayout {
     ///   - font: 用于测量的字体。
     ///   - constrainedWidth: 自动换行宽度。
     ///   - numberOfLines: 最大行数，`0` 表示不限行。
+    ///   - lineSpacing: 相邻两行 tight 区域之间的额外间距，默认 `0`。
     /// - Returns: 多行文本的 glyph-tight 布局结果。
     public static func metrics(
         text: String,
         font: UIFont,
         constrainedWidth: CGFloat,
-        numberOfLines: Int
+        numberOfLines: Int,
+        lineSpacing: CGFloat = 0
     ) -> Metrics {
         let lines = makeLines(
             text: text,
@@ -331,9 +350,9 @@ public enum GlyphTightTextLayout {
             numberOfLines: numberOfLines
         )
         let maxLineWidth = lines.map(\.lineWidth).max() ?? 0
-        let tightHeight = lines.reduce(CGFloat(0)) { result, line in
-            result + line.tightHeight
-        }
+        let glyphHeight = lines.reduce(CGFloat(0)) { $0 + $1.tightHeight }
+        let gapCount = max(0, lines.count - 1)
+        let tightHeight = glyphHeight + lineSpacing * CGFloat(gapCount)
 
         return Metrics(
             lines: lines,
