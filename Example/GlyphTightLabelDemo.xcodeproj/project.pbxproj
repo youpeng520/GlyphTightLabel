@@ -12,6 +12,16 @@
 		B1A1A1A10000000000000003 /* GlyphTightLabel in Frameworks */ = {isa = PBXBuildFile; productRef = B1A1A1A30000000000000002 /* GlyphTightLabel */; };
 		B1A1A1A10000000000000004 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1A1A1A30000000000000004 /* SnapKit */; };
 		B1A1A1A10000000000000005 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000005 /* Poppins-Regular.ttf */; };
+		B1C000010000000000000001 /* FontMetricsSampleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000001 /* FontMetricsSampleView.swift */; };
+		B1C000010000000000000002 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000002 /* ViewController.swift */; };
+		B1C000010000000000000003 /* Poppins-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000003 /* Poppins-Thin.ttf */; };
+		B1C000010000000000000004 /* Poppins-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000004 /* Poppins-ExtraLight.ttf */; };
+		B1C000010000000000000005 /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000005 /* Poppins-Light.ttf */; };
+		B1C000010000000000000006 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000006 /* Poppins-Medium.ttf */; };
+		B1C000010000000000000007 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000007 /* Poppins-SemiBold.ttf */; };
+		B1C000010000000000000008 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000008 /* Poppins-Bold.ttf */; };
+		B1C000010000000000000009 /* Poppins-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C000020000000000000009 /* Poppins-ExtraBold.ttf */; };
+		B1C00001000000000000000A /* Poppins-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B1C00002000000000000000A /* Poppins-Black.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +30,16 @@
 		B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlyphTightLabelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A1A1A20000000000000004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1A1A1A20000000000000005 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Regular.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000001 /* FontMetricsSampleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontMetricsSampleView.swift; sourceTree = "<group>"; };
+		B1C000020000000000000002 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B1C000020000000000000003 /* Poppins-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Thin.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000004 /* Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000005 /* Poppins-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Light.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000006 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Medium.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000007 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000008 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		B1C000020000000000000009 /* Poppins-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-ExtraBold.ttf"; sourceTree = "<group>"; };
+		B1C00002000000000000000A /* Poppins-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Poppins-Black.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,7 +67,9 @@
 			isa = PBXGroup;
 			children = (
 				B1A1A1A20000000000000001 /* AppDelegate.swift */,
+				B1C000020000000000000001 /* FontMetricsSampleView.swift */,
 				B1A1A1A20000000000000002 /* GlyphTightDemoViewController.swift */,
+				B1C000020000000000000002 /* ViewController.swift */,
 				B1A1A1A20000000000000004 /* Info.plist */,
 				B1A1A1A50000000000000004 /* Resources */,
 			);
@@ -73,7 +95,15 @@
 		B1A1A1A50000000000000005 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B1C00002000000000000000A /* Poppins-Black.ttf */,
+				B1C000020000000000000008 /* Poppins-Bold.ttf */,
+				B1C000020000000000000009 /* Poppins-ExtraBold.ttf */,
+				B1C000020000000000000004 /* Poppins-ExtraLight.ttf */,
+				B1C000020000000000000005 /* Poppins-Light.ttf */,
+				B1C000020000000000000006 /* Poppins-Medium.ttf */,
 				B1A1A1A20000000000000005 /* Poppins-Regular.ttf */,
+				B1C000020000000000000007 /* Poppins-SemiBold.ttf */,
+				B1C000020000000000000003 /* Poppins-Thin.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -144,7 +174,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1C00001000000000000000A /* Poppins-Black.ttf in Resources */,
+				B1C000010000000000000008 /* Poppins-Bold.ttf in Resources */,
+				B1C000010000000000000009 /* Poppins-ExtraBold.ttf in Resources */,
+				B1C000010000000000000004 /* Poppins-ExtraLight.ttf in Resources */,
+				B1C000010000000000000005 /* Poppins-Light.ttf in Resources */,
+				B1C000010000000000000006 /* Poppins-Medium.ttf in Resources */,
 				B1A1A1A10000000000000005 /* Poppins-Regular.ttf in Resources */,
+				B1C000010000000000000007 /* Poppins-SemiBold.ttf in Resources */,
+				B1C000010000000000000003 /* Poppins-Thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,7 +194,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1A1A1A10000000000000001 /* AppDelegate.swift in Sources */,
+				B1C000010000000000000001 /* FontMetricsSampleView.swift in Sources */,
 				B1A1A1A10000000000000002 /* GlyphTightDemoViewController.swift in Sources */,
+				B1C000010000000000000002 /* ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

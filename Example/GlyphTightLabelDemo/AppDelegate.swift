@@ -10,7 +10,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = UINavigationController(
-            rootViewController: GlyphTightDemoViewController()
+            rootViewController: ViewController()
         )
         window.makeKeyAndVisible()
         self.window = window

@@ -41,6 +41,9 @@ label.numberOfLines = 0
 
 Demo 在 `Example/` 目录，通过本地 SPM 依赖仓库根目录的 `Package.swift`。
 
+- 首页 **Poppins**：各字重下的默认 UILabel 与 `GlyphTightLabel` 对比（`FontMetricsSampleView`）
+- 右上角 **Demo**：单行/多行最小示例（`GlyphTightDemoViewController`）
+
 ```bash
 open Example/GlyphTightLabelDemo.xcodeproj
 ```
