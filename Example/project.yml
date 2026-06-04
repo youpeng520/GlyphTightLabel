@@ -1,0 +1,23 @@
+name: GlyphTightLabelDemo
+options:
+  bundleIdPrefix: com.glyphTight
+  deploymentTarget:
+    iOS: "15.0"
+packages:
+  GlyphTightLabel:
+    path: ..
+targets:
+  GlyphTightLabelDemo:
+    type: application
+    platform: iOS
+    sources:
+      - path: GlyphTightLabelDemo
+    settings:
+      GENERATE_INFOPLIST_FILE: YES
+      INFOPLIST_KEY_UILaunchScreen_Generation: YES
+      INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: YES
+      INFOPLIST_KEY_UISupportedInterfaceOrientations: UIInterfaceOrientationPortrait
+      INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
+    dependencies:
+      - package: GlyphTightLabel
+        product: GlyphTightLabel

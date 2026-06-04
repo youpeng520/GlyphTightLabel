@@ -1,0 +1,246 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B1A1A1A10000000000000001 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000001 /* AppDelegate.swift */; };
+		B1A1A1A10000000000000002 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A1A1A20000000000000002 /* DemoViewController.swift */; };
+		B1A1A1A10000000000000003 /* GlyphTightLabel in Frameworks */ = {isa = PBXBuildFile; productRef = B1A1A1A30000000000000002 /* GlyphTightLabel */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B1A1A1A20000000000000001 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B1A1A1A20000000000000002 /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
+		B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GlyphTightLabelDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B1A1A1A40000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1A1A1A10000000000000003 /* GlyphTightLabel in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B1A1A1A50000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				B1A1A1A50000000000000002 /* GlyphTightLabelDemo */,
+				B1A1A1A50000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B1A1A1A50000000000000002 /* GlyphTightLabelDemo */ = {
+			isa = PBXGroup;
+			children = (
+				B1A1A1A20000000000000001 /* AppDelegate.swift */,
+				B1A1A1A20000000000000002 /* DemoViewController.swift */,
+			);
+			path = GlyphTightLabelDemo;
+			sourceTree = "<group>";
+		};
+		B1A1A1A50000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B1A1A1A60000000000000001 /* GlyphTightLabelDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B1A1A1A70000000000000002 /* Build configuration list for PBXNativeTarget "GlyphTightLabelDemo" */;
+			buildPhases = (
+				B1A1A1A80000000000000001 /* Sources */,
+				B1A1A1A40000000000000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GlyphTightLabelDemo;
+			packageProductDependencies = (
+				B1A1A1A30000000000000002 /* GlyphTightLabel */,
+			);
+			productName = GlyphTightLabelDemo;
+			productReference = B1A1A1A20000000000000003 /* GlyphTightLabelDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B1A1A1A90000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					B1A1A1A60000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = B1A1A1A70000000000000001 /* Build configuration list for PBXProject "GlyphTightLabelDemo" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B1A1A1A50000000000000001;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B1A1A1A30000000000000001 /* XCLocalSwiftPackageReference "GlyphTightLabel" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = B1A1A1A50000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B1A1A1A60000000000000001 /* GlyphTightLabelDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B1A1A1A80000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1A1A1A10000000000000001 /* AppDelegate.swift in Sources */,
+				B1A1A1A10000000000000002 /* DemoViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		B1A1A1AA0000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B1A1A1AA0000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B1A1A1AA0000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glyphTight.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B1A1A1AA0000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.glyphTight.demo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B1A1A1A70000000000000001 /* Build configuration list for PBXProject "GlyphTightLabelDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1A1A1AA0000000000000001 /* Debug */,
+				B1A1A1AA0000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B1A1A1A70000000000000002 /* Build configuration list for PBXNativeTarget "GlyphTightLabelDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1A1A1AA0000000000000003 /* Debug */,
+				B1A1A1AA0000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B1A1A1A30000000000000001 /* XCLocalSwiftPackageReference "GlyphTightLabel" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B1A1A1A30000000000000002 /* GlyphTightLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A1A1A30000000000000001 /* XCLocalSwiftPackageReference "GlyphTightLabel" */;
+			productName = GlyphTightLabel;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = B1A1A1A90000000000000001 /* Project object */;
+}

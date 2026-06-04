@@ -1,5 +1,10 @@
 /.xcodegen/
 /DerivedData/
+.build/
+.swiftpm/
+Package.resolved
 *.xcuserdata/
 *.xcuserstate
 *.xcodeproj/project.xcworkspace/
+Example/**/*.xcuserdata/
+Example/**/xcuserdata/
