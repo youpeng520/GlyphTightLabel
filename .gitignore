@@ -1,0 +1,5 @@
+/.xcodegen/
+/DerivedData/
+*.xcuserdata/
+*.xcuserstate
+*.xcodeproj/project.xcworkspace/
