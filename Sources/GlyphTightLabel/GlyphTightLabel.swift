@@ -48,6 +48,43 @@ open class GlyphTightLabel: UILabel {
         }
     }
 
+    /// 文字渐变颜色数组。
+    ///
+    /// 设置为包含至少 2 个 `UIColor` 的数组时将开启文字渐变绘制；
+    /// 如果为 `nil` 或少于 2 个颜色，则使用 `textColor` 单色绘制。
+    public var gradientColors: [UIColor]? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    /// 渐变颜色的位置分布（取值范围 0.0 ~ 1.0）。
+    ///
+    /// 默认 `nil` 表示各颜色均匀分布。如果提供，数组长度应与 `gradientColors` 一致。
+    public var gradientLocations: [CGFloat]? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    /// 渐变起点（归一化坐标 0.0 ~ 1.0）。
+    ///
+    /// 默认 `CGPoint(x: 0, y: 0.5)`（即左侧中点）。
+    public var gradientStartPoint: CGPoint = CGPoint(x: 0, y: 0.5) {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
+    /// 渐变终点（归一化坐标 0.0 ~ 1.0）。
+    ///
+    /// 默认 `CGPoint(x: 1, y: 0.5)`（即右侧中点，构成水平从左到右渐变）。
+    public var gradientEndPoint: CGPoint = CGPoint(x: 1, y: 0.5) {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+
     /// Label 显示的纯文本。
     ///
     /// 文本变化后会重新计算 glyph bounds，并刷新 intrinsic size 和绘制结果。
@@ -163,7 +200,7 @@ open class GlyphTightLabel: UILabel {
     /// 用 CoreText 按 glyph tight bounds 绘制文本。
     ///
     /// 每一行会根据自身 glyph bounds 计算 baseline，因此行高来自真实 glyph 外接矩形，
-    /// 而不是 `UIFont.lineHeight`。
+    /// 而不是 `UIFont.lineHeight`。支持单色和多行渐变色文字绘制。
     override open func drawText(in rect: CGRect) {
         guard
             let text,
@@ -185,23 +222,95 @@ open class GlyphTightLabel: UILabel {
         )
         var lineTopY = contentRect.minY + max(0, (contentRect.height - layout.tightHeight) / 2)
 
+        let isGradient = (gradientColors?.count ?? 0) >= 2
+
         context.saveGState()
-        context.setFillColor(textColor.cgColor)
         context.textMatrix = .identity
         context.translateBy(x: 0, y: bounds.height)
         context.scaleBy(x: 1, y: -1)
 
-        for (index, line) in layout.lines.enumerated() {
-            let baselineY = lineTopY + line.baselineY
-            let originX = alignedOriginX(lineWidth: line.lineWidth, in: contentRect)
-            if showsDebugLineSeparators {
-                drawDebugLineSeparator(lineTopY: lineTopY, lineHeight: line.tightHeight, context: context)
+        if isGradient, let colors = gradientColors {
+            // 使用联合 CGPath 收集所有行的 Glyph 剪裁路径，避免多行多次 clip 导致交集为空
+            let combinedPath = CGMutablePath()
+            var currentLineTopY = lineTopY
+
+            for (index, line) in layout.lines.enumerated() {
+                let baselineY = currentLineTopY + line.baselineY
+                let originX = alignedOriginX(lineWidth: line.lineWidth, in: contentRect)
+                let lineOriginY = bounds.height - baselineY
+
+                let runs = CTLineGetGlyphRuns(line.ctLine) as? [CTRun] ?? []
+                for run in runs {
+                    guard let runFontValue = (CTRunGetAttributes(run) as NSDictionary)[kCTFontAttributeName] else {
+                        continue
+                    }
+                    let runFont = runFontValue as! CTFont
+
+                    let glyphCount = CTRunGetGlyphCount(run)
+                    var glyphs = Array(repeating: CGGlyph(), count: glyphCount)
+                    var positions = Array(repeating: CGPoint.zero, count: glyphCount)
+                    CTRunGetGlyphs(run, CFRange(location: 0, length: glyphCount), &glyphs)
+                    CTRunGetPositions(run, CFRange(location: 0, length: glyphCount), &positions)
+
+                    for i in 0 ..< glyphCount {
+                        let glyph = glyphs[i]
+                        let position = positions[i]
+                        var transform = CGAffineTransform(translationX: originX + position.x, y: lineOriginY + position.y)
+                        if let glyphPath = CTFontCreatePathForGlyph(runFont, glyph, &transform) {
+                            combinedPath.addPath(glyphPath)
+                        }
+                    }
+                }
+
+                if showsDebugLineSeparators {
+                    drawDebugLineSeparator(lineTopY: currentLineTopY, lineHeight: line.tightHeight, context: context)
+                }
+
+                currentLineTopY += line.tightHeight
+                if index < layout.lines.count - 1 {
+                    currentLineTopY += lineSpacing
+                }
             }
-            context.textPosition = CGPoint(x: originX, y: bounds.height - baselineY)
-            CTLineDraw(line.ctLine, context)
-            lineTopY += line.tightHeight
-            if index < layout.lines.count - 1 {
-                lineTopY += lineSpacing
+
+            context.addPath(combinedPath)
+            context.clip()
+
+            let cgColors = colors.map(\.cgColor) as CFArray
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            var locations = gradientLocations
+            if let locs = locations, locs.count != colors.count {
+                locations = nil
+            }
+            if let gradient = CGGradient(colorsSpace: colorSpace, colors: cgColors, locations: locations) {
+                let startX = contentRect.minX + gradientStartPoint.x * contentRect.width
+                let startY = bounds.height - (contentRect.minY + gradientStartPoint.y * contentRect.height)
+
+                let endX = contentRect.minX + gradientEndPoint.x * contentRect.width
+                let endY = bounds.height - (contentRect.minY + gradientEndPoint.y * contentRect.height)
+
+                context.drawLinearGradient(
+                    gradient,
+                    start: CGPoint(x: startX, y: startY),
+                    end: CGPoint(x: endX, y: endY),
+                    options: [.drawsBeforeStartLocation, .drawsAfterEndLocation]
+                )
+            }
+        } else {
+            context.setFillColor(textColor.cgColor)
+            context.setTextDrawingMode(.fill)
+
+            for (index, line) in layout.lines.enumerated() {
+                let baselineY = lineTopY + line.baselineY
+                let originX = alignedOriginX(lineWidth: line.lineWidth, in: contentRect)
+                if showsDebugLineSeparators {
+                    drawDebugLineSeparator(lineTopY: lineTopY, lineHeight: line.tightHeight, context: context)
+                }
+                context.textPosition = CGPoint(x: originX, y: bounds.height - baselineY)
+                CTLineDraw(line.ctLine, context)
+                lineTopY += line.tightHeight
+                if index < layout.lines.count - 1 {
+                    lineTopY += lineSpacing
+                }
             }
         }
 

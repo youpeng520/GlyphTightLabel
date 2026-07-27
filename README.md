@@ -86,6 +86,35 @@ cd Example && xcodegen generate
 - `verticalPadding`：在 tight 高度外额外增加的上下内边距
 - `lineSpacing`：多行时相邻两行 tight 区域之间的间距
 - `showsDebugLineSeparators`：绘制每行上下边界调试线
+- `gradientColors`：文字渐变颜色数组（`[UIColor]?`）。设置 2 个及以上颜色即可启用文字渐变绘制
+- `gradientLocations`：渐变颜色的位置分布比例（`[CGFloat]?`，取值 `0.0 ~ 1.0`）
+- `gradientStartPoint`：渐变起点（归一化坐标，默认 `(0, 0.5)` 左中）
+- `gradientEndPoint`：渐变终点（归一化坐标，默认 `(1, 0.5)` 右中）
+
+### 文字渐变色示例
+
+```swift
+import GlyphTightLabel
+import UIKit
+
+// 1. 水平三色渐变 Label
+let gradientLabel = GlyphTightLabel()
+gradientLabel.text = "Gradient GlyphTightLabel"
+gradientLabel.font = .systemFont(ofSize: 28, weight: .bold)
+gradientLabel.gradientColors = [.systemBlue, .systemPurple, .systemPink]
+gradientLabel.gradientStartPoint = CGPoint(x: 0, y: 0.5) // 左
+gradientLabel.gradientEndPoint = CGPoint(x: 1, y: 0.5)   // 右
+
+// 2. 多行斜向渐变 Label
+let multiLineGradientLabel = GlyphTightLabel()
+multiLineGradientLabel.text = "Tight typography with multi-color gradient text rendering."
+multiLineGradientLabel.font = .systemFont(ofSize: 24, weight: .medium)
+multiLineGradientLabel.numberOfLines = 0
+multiLineGradientLabel.lineSpacing = 8
+multiLineGradientLabel.gradientColors = [.systemOrange, .systemRed, .systemPurple]
+multiLineGradientLabel.gradientStartPoint = CGPoint(x: 0, y: 0) // 左上
+multiLineGradientLabel.gradientEndPoint = CGPoint(x: 1, y: 1)   // 右下
+```
 
 ## 要求
 
